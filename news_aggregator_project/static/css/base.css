@@ -1,0 +1,219 @@
+/* styles.css */
+
+/* Existing styles */
+.external-links-bar img, .main-nav-bar img, .external-links img {
+    width: 16px;  /* Adjusted size */
+    height: 16px; /* Adjusted size */
+}
+
+.category-link {
+    font-weight: bold;
+    padding: 5px; /* Adjusted padding */
+    text-decoration: none;
+    color: black;
+}
+
+.category-link:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.search-bar-container input[type="search"] {
+    width: 50%; /* Adjusted width */
+    padding: 5px; /* Adjusted padding */
+    font-size: 14px; /* Adjusted font size */
+}
+
+.search-bar-container button {
+    padding: 5px 10px; /* Adjusted padding */
+    font-size: 14px; /* Adjusted font size */
+    margin-left: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.category-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.navbar-brand {
+    font-size: 20px; /* Adjusted font size */
+    font-weight: bold;
+}
+
+.main-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right .nav-item {
+    margin-left: 10px; /* Adjusted margin */
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .category-link {
+    color: #ddd;
+}
+
+.dark-mode .category-link:hover {
+    color: #fff;
+}
+
+.btn-dark-mode {
+    background-color: transparent;
+    border: none;
+}
+
+.centered-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px; /* Add margin to account for the fixed navbar height */
+}
+
+.external-links-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.external-links {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    margin: 0 20px; /* Adjusted margin */
+}
+
+.external-links::-webkit-scrollbar {
+    display: none;
+}
+
+.external-links {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.external-links a {
+    flex: 0 0 auto;
+    margin: 0 5px; /* Adjusted margin */
+}
+
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f8f9fa;
+    border: none;
+    font-size: 20px; /* Adjusted font size */
+    cursor: pointer;
+    z-index: 1;
+}
+
+.scroll-arrow.left {
+    left: 10px;
+}
+
+.scroll-arrow.right {
+    right: 10px;
+}
+
+.weather-widget {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Adjusted margin */
+    cursor: pointer;
+}
+
+.weather-widget img {
+    width: 20px; /* Adjusted size */
+    height: 20px; /* Adjusted size */
+    margin-right: 5px; /* Adjusted margin */
+}
+
+.weather-widget .weather-info {
+    font-size: 14px; /* Adjusted font size */
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+}
+
+/* New styles for hero image */
+.hero-image {
+    width: 100%;
+    height: 77.7vh; /* Adjusted height */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.hero-text h1 {
+    font-size: 2rem; /* Adjusted font size */
+    font-weight: bold;
+
+}
+
+.hero-text p {
+    font-size: 1rem; /* Adjusted font size */
+    margin: 20px 0;
+}
+
+.hero-text a {
+    font-size: 1rem; /* Adjusted font size */
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.hero-text a:hover {
+    background-color: #218838;
+}

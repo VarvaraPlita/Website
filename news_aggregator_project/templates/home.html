@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Home - News Aggregator{% endblock %}
+
+{% block content %}
+<!-- Hero Image Section -->
+<div class="hero-image" style="background-image: url('{{ url_for('static', filename='img/image.jpg') }}');">
+    <div class="hero-text">
+        <h1>News Aggregator</h1>
+        <p>Automated news collection and management application</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">View News</a>
+    </div>
+    
+</div>
+{% endblock %}

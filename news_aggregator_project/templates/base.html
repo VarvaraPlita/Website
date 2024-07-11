@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}News Aggregator{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark_mode.css') }}">
+    
+</head>
+<body class="{% if session.get('dark_mode') %}dark-mode{% else %}light-mode{% endif %}">
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg {% if session.get('dark_mode') %}navbar-dark-mode{% else %}navbar-light-mode{% endif %} main-nav-bar">
+        <a class="navbar-brand" href="{{ url_for('index') }}">News Aggregator</a>
+        <div class="search-bar-container">
+            <form class="form-inline my-2 my-lg-0" action="{{ url_for('search') }}" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <img src="{{ url_for('static', filename='img/search.png') }}" alt="Search">
+                </button>
+            </form>
+        </div>
+        <div class="navbar-right">
+            <li class="nav-item">
+                <button class="btn btn-dark-mode" id="mode-toggle">
+                    <img id="mode-icon" src="{% if session.get('dark_mode') %}{{ url_for('static', filename='img/sun.png') }}{% else %}{{ url_for('static', filename='img/moon.png') }}{% endif %}" alt="Dark Mode">
+                </button>
+            </li>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('profile') }}">
+                    <img src="{{ url_for('static', filename='img/profile.png') }}" alt="Profile">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('notifications') }}">
+                    <img src="{{ url_for('static', filename='img/notifications.png') }}" alt="Notifications">
+                    <span class="badge badge-danger">2</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('settings') }}">
+                    <img src="{{ url_for('static', filename='img/settings.png') }}" alt="Settings">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login_register') }}">Login/Register</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+        </div>
+    </nav>
+
+    <!-- Centered Section -->
+    <div class="centered-section">
+        <!-- External Links Bar -->
+        <div class="external-links-container">
+            <button class="scroll-arrow left" onclick="scrollLeft()">&#9664;</button>
+            <div class="external-links">
+                <a class="nav-link" href="https://outlook.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/microsoft.png') }}" alt="Outlook"> Outlook.com
+                </a>
+                <a class="nav-link" href="https://example.com/shopping" target="_blank">
+                    <img src="{{ url_for('static', filename='img/shopping.png') }}" alt="Shopping">
+                    Shopping
+                </a>
+                <a class="nav-link" href="https://example.com/sports" target="_blank">
+                    <img src="{{ url_for('static', filename='img/sports.png') }}" alt="Sports">
+                    Sports
+                </a>
+                <a class="nav-link" href="https://facebook.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook">
+                    Facebook
+                </a>
+                <a class="nav-link" href="https://skype.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/skype.png') }}" alt="Skype">
+                    Skype
+                </a>
+                <a class="nav-link" href="https://office.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/microsoft.png') }}" alt="Office">
+                    Office
+                </a>
+                <a class="nav-link" href="https://onenote.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/onenote.png') }}" alt="OneNote">
+                    OneNote
+                </a>
+                <a class="nav-link" href="https://onedrive.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/onedrive.png') }}" alt="OneDrive">
+                    OneDrive
+                </a>
+                <a class="nav-link" href="https://www.microsoft.com/store" target="_blank">
+                    <img src="{{ url_for('static', filename='img/microsoft_store.png') }}" alt="Microsoft Store">
+                    Microsoft Store
+                </a>
+                <a class="nav-link" href="https://www.bing.com/maps" target="_blank">
+                    <img src="{{ url_for('static', filename='img/maps.png') }}" alt="Maps">
+                    Χάρτες
+                </a>
+                <a class="nav-link" href="https://twitter.com" target="_blank">
+                    <img src="{{ url_for('static', filename='img/twitter.png') }}" alt="Twitter">
+                    Twitter
+                </a>
+            </div>
+            <button class="scroll-arrow right" onclick="scrollRight()">&#9654;</button>
+        </div>
+
+        <!-- Weather and Category Links -->
+        <div class="d-flex align-items-center">
+            <a class="weather-widget" href="https://www.msn.com/en-us/weather" target="_blank">
+                <img src="{{ url_for('static', filename='img/weather.png') }}" alt="Weather Icon">
+                <div class="weather-info" id="weather-info">
+                    Patra, 29°C
+                </div>
+            </a>
+            <div class="category-links">
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Uncategorized') }}">Uncategorized</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Αγρια Φύση') }}">Αγρια Φύση</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Αθλητικά') }}">Αθλητικά</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Κοινωνία') }}">Κοινωνία</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Κόσμος') }}">Κόσμος</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Μουσική') }}">Μουσική</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Οικονομία') }}">Οικονομία</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Οικονομία & Αγορές') }}">Οικονομία & Αγορές</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Πολιτική') }}">Πολιτική</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Σινεμά') }}">Σινεμά</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Ναυτιλία') }}">Ναυτιλία</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Απόψεις') }}">Απόψεις</a>
+                <a class="category-link" href="{{ url_for('category_articles', category_name='Κλίμα') }}">Κλίμα</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('mode-toggle').addEventListener('click', function() {
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode', !isDarkMode);
+            document.getElementById('mode-icon').src = isDarkMode ? '{{ url_for("static", filename="img/sun.png") }}' : '{{ url_for("static", filename="img/moon.png") }}';
+            fetch('{{ url_for("toggle_dark_mode") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ dark_mode: isDarkMode })
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    document.querySelectorAll('.card').forEach(card => {
+                        card.classList.toggle('dark-mode', isDarkMode);
+                    });
+                }
+            });
+        });
+
+        function scrollLeft() {
+            document.querySelector('.external-links').scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight() {
+            document.querySelector('.external-links').scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.add('hidden');
+                observer.observe(card);
+            });
+
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.toggle('dark-mode', isDarkMode);
+            });
+        });
+
+        async function fetchWeather() {
+            const apiKey = 'YOUR_WEATHER_API_KEY'; // Replace with your WeatherAPI key
+            const city = 'Patra';
+            const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
+            const data = await response.json();
+            const temperature = data.current.temp_c;
+            const weatherInfo = document.getElementById('weather-info');
+            weatherInfo.textContent = `${city}, ${temperature}°C`;
+        }
+
+        fetchWeather();
+    </script>
+</body>
+</html>

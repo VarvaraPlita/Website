@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login or Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Home Button -->
+            <div class="col-12 text-right mb-3">
+                <a href="{{ url_for('home') }}" class="btn btn-secondary">Home</a>
+            </div>
+            <!-- Login Form -->
+            <div class="col-md-6">
+                <h1 class="mb-4">Login</h1>
+                <form method="post" action="{{ url_for('login_register') }}">
+                    <input type="hidden" name="form_type" value="login">
+                    <div class="form-group">
+                        <label for="login_username">Username</label>
+                        <input type="text" name="username" id="login_username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password">Password</label>
+                        <input type="password" name="password" id="login_password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <hr>
+                <!-- Google Sign-In Button -->
+                <div class="text-center">
+                    <a href="{{ url_for('google_login') }}" class="btn btn-danger">Login with Google</a>
+                </div>
+                <hr>
+                <!-- Facebook Login Button -->
+                <div class="text-center">
+                    <a href="{{ url_for('facebook_login') }}" class="btn btn-primary">Login with Facebook</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="col-md-6">
+                <h1 class="mb-4">Register</h1>
+                <form method="post" action="{{ url_for('login_register') }}">
+                    <input type="hidden" name="form_type" value="register">
+                    <div class="form-group">
+                        <label for="register_username">Username</label>
+                        <input type="text" name="username" id="register_username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register_email">Email</label>
+                        <input type="email" name="email" id="register_email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register_password">Password</label>
+                        <input type="password" name="password" id="register_password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

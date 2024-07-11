@@ -1,0 +1,43 @@
+/* dark_mode.css */
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .navbar {
+    background-color: #343a40; /* Ουδέτερο χρώμα για το navigation bar στο dark mode */
+    color: #e0e0e0;
+}
+
+.dark-mode .category-link {
+    color: #ddd;
+}
+
+.dark-mode .category-link:hover {
+    color: #fff;
+}
+
+.dark-mode .card-title, 
+.dark-mode .card-text,
+.dark-mode .nav-link,
+.dark-mode .navbar-brand {
+    color: #e0e0e0;
+}
+
+/* Style for the dark mode toggle button */
+.dark-mode .btn-dark-mode {
+    background-color: #333;
+    border: 1px solid #555;
+    color: #e0e0e0;
+}
+
+.dark-mode .btn-dark-mode img {
+    filter: invert(0%); /* Ensure sun icon is black */
+}
+
+.dark-mode .btn-dark-mode:hover {
+    background-color: #444;
+    border-color: #666;
+    color: #fff;
+}

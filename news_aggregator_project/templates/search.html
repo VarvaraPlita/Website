@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Search Results for "{{ query }}"</h1>
+    {% if search_results %}
+        <div class="list-group">
+            {% for result in search_results %}
+                <a href="{{ url_for('news_detail', id=result._id) }}" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">{{ result.title }}</h5>
+                    <p class="mb-1">{{ result.summary }}</p>
+                    <small>{{ result.date_time }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results found for your query.</p>
+    {% endif %}
+</div>
+{% endblock %}

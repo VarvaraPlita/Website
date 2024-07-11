@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if current_user.is_authenticated %}
+    <div class="mb-4 text-right">
+        <a href="{{ url_for('add') }}" class="btn btn-success">Add Article</a>
+    </div>
+    {% endif %}
+    {% for category, articles in news_by_category.items() %}
+    <h2>{{ category }}</h2>
+    <div class="row" id="articles-{{ category }}">
+        {% for item in articles[:3] %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 {% if session.get('dark_mode') %}dark-mode{% endif %}">
+                <img src="{{ item.photo_url }}" class="card-img-top" alt="{{ item.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.summary }}</p>
+                    <p class="card-text"><small class="text-muted">{{ item.date_time }} | {{ item.category }}</small></p>
+                    <a href="{{ url_for('news_detail', id=item._id|string) }}" class="btn btn-primary">Read More</a>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('edit', id=item._id|string) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ url_for('delete', id=item._id|string) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if articles|length > 3 %}
+    <div class="text-center">
+        <button class="btn btn-secondary load-more" data-category="{{ category }}" data-loaded="3">Load More</button>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const loadMoreButtons = document.querySelectorAll('.load-more');
+    
+    loadMoreButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const category = this.dataset.category;
+            const loaded = parseInt(this.dataset.loaded);
+            
+            fetch(`/load_more?category=${category}&loaded=${loaded}`)
+                .then(response => response.json())
+                .then(data => {
+                    const articlesContainer = document.getElementById(`articles-${category}`);
+                    data.articles.forEach(article => {
+                        const articleElement = document.createElement('div');
+                        articleElement.className = 'col-md-4 mb-4';
+                        articleElement.innerHTML = `
+                            <div class="card h-100 ${document.body.classList.contains('dark-mode') ? 'dark-mode' : ''}">
+                                <img src="${article.photo_url}" class="card-img-top" alt="${article.title}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${article.title}</h5>
+                                    <p class="card-text">${article.summary}</p>
+                                    <p class="card-text"><small class="text-muted">${article.date_time} | ${article.category}</small></p>
+                                    <a href="/news/${article._id}" class="btn btn-primary">Read More</a>
+                                    {% if current_user.is_authenticated %}
+                                    <a href="/edit/${article._id}" class="btn btn-warning">Edit</a>
+                                    <form action="/delete/${article._id}" method="post" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        `;
+                        articlesContainer.appendChild(articleElement);
+                    });
+                    button.dataset.loaded = loaded + data.articles.length;
+                    if (!data.has_more) {
+                        button.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error loading more articles:', error));
+        });
+    });
+});
+</script>
+{% endblock %}

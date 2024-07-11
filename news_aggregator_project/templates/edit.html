@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Article{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Article</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ news_item.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date_time">Date and Time</label>
+            <input type="datetime-local" class="form-control" id="date_time" name="date_time" value="{{ news_item.date_time.isoformat()[:16] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" name="category" value="{{ news_item.category }}" required>
+        </div>
+        <div class="form-group">
+            <label for="url">URL</label>
+            <input type="url" class="form-control" id="url" name="url" value="{{ news_item.url }}" required>
+        </div>
+        <div class="form-group">
+            <label for="photo_url">Photo URL</label>
+            <input type="url" class="form-control" id="photo_url" name="photo_url" value="{{ news_item.photo_url }}" required>
+        </div>
+        <div class="form-group">
+            <label for="summary">Summary</label>
+            <textarea class="form-control" id="summary" name="summary" rows="3" required>{{ news_item.summary }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" class="form-control" id="tags" name="tags" value="{{ news_item.tags | join(', ') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="main_text">Main Text</label>
+            <textarea class="form-control" id="main_text" name="main_text" rows="5" required>{{ news_item.main_text }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Article</button>
+    </form>
+</div>
+{% endblock %}

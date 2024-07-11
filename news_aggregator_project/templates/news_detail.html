@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ news_item.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mb-3">
+        <img src="{{ news_item.photo_url }}" class="card-img-top" alt="{{ news_item.title }}">
+        <div class="card-body">
+            <h3 class="card-title">{{ news_item.title }}</h3>
+            <p class="card-text">{{ news_item.summary }}</p>
+            <p class="card-text"><small class="text-muted">{{ news_item.date_time }} | {{ news_item.category }}</small></p>
+            <p class="card-text">{{ news_item.main_text|safe }}</p>
+            <a href="{{ news_item.url }}" class="btn btn-primary" target="_blank">Read Full Article</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>About Us</h1>
+    <p>Welcome to our News Aggregator platform!</p>
+    <p>We are a team of dedicated students from the University of Peloponnese, currently working on a project. Our platform is designed to collect and present news articles from various sources, making it easy for you to stay updated with the latest happenings around the world.</p>
+    <p>Our team consists of:</p>
+    <ul>
+        <li>Plita Varvara</li>
+        <li>Konstantinos Katsikas</li>
+    </ul>
+    <p>Our mission is to create a seamless and user-friendly experience for news consumption. We believe in the power of information and aim to provide a reliable and comprehensive news aggregation service.</p>
+    <p>Thank you for visiting our platform. We hope you find it useful and informative.</p>
+    <p>If you have any questions or feedback, please do not hesitate to <a href="{{ url_for('contact') }}">contact us</a>.</p>
+</div>
+{% endblock %}

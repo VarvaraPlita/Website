@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Articles in {{ category_name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Articles in {{ category_name }}</h1>
+    {% if articles %}
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ article.photo_url }}" class="card-img-top" alt="{{ article.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.summary }}</p>
+                            <a href="{{ url_for('news_detail', id=article._id) }}" class="btn btn-primary">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% if has_prev %}
+            <a href="{{ url_for('category_articles', category_name=category_name, page=page-1) }}" class="btn btn-primary">Previous</a>
+        {% endif %}
+        {% if has_next %}
+            <a href="{{ url_for('category_articles', category_name=category_name, page=page+1) }}" class="btn btn-primary">Next</a>
+        {% endif %}
+    {% else %}
+        <p>No articles found in this category.</p>
+    {% endif %}
+</div>
+{% endblock %}
